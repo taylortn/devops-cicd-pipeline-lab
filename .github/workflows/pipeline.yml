@@ -1,0 +1,22 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Validate HTML File
+        run: test -f app/index.html
+
+      - name: Validate Dockerfile
+        run: test -f docker/Dockerfile
+
+      - name: Validate Deployment Script
+        run: bash -n scripts/deploy.sh
